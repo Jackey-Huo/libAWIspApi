@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo >config.mk
+
+echo -n "" >> config.mk
+until [ -z "$1" ] 
+do
+  echo "$1" >> config.mk
+  shift
+done
+
+
+

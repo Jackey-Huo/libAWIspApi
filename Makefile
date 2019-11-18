@@ -1,6 +1,6 @@
 -include config.mk
 
-TARGET := libAWIspApi.so
+TARGET := $(TARGET_NAME)
 LIBS :=
 
 INSTALL_PREFIX = $(shell pwd)

@@ -314,16 +314,10 @@ void __isp_af_set_params(struct isp_lib_context *isp_gen)
 					isp_gen->af_settings.af_metering_mode;
 	isp_af_set_params_helper(&isp_gen->af_entity_ctx, ISP_AF_METERING_MODE);
 
-
 	clear(isp_gen->af_entity_ctx.af_param);
 	isp_gen->af_entity_ctx.af_param.u.af_range =
 						isp_gen->af_settings.af_range;
 	isp_af_set_params_helper(&isp_gen->af_entity_ctx, ISP_AF_RANGE);
-
-	clear(isp_gen->af_entity_ctx.af_param);
-	isp_gen->af_entity_ctx.af_param.u.vcm = isp_gen->stat.vcm_cfg;
-	isp_af_set_params_helper(&isp_gen->af_entity_ctx, ISP_AF_VCM_PARAM);
-
 
 	clear(isp_gen->af_entity_ctx.af_param);
 	isp_gen->af_entity_ctx.af_param.u.focus_lock =
@@ -333,16 +327,6 @@ void __isp_af_set_params(struct isp_lib_context *isp_gen)
 	clear(isp_gen->af_entity_ctx.af_param);
 	isp_gen->af_entity_ctx.af_param.u.sensor_info =	isp_gen->sensor_info;
 	isp_af_set_params_helper(&isp_gen->af_entity_ctx, ISP_AF_SENSOR_INFO);
-
-	clear(isp_gen->af_entity_ctx.af_param);
-	isp_gen->af_entity_ctx.af_param.u.test_cfg.isp_test_mode = isp_gen->isp_ini_cfg.isp_test_settings.isp_test_mode;
-	isp_gen->af_entity_ctx.af_param.u.test_cfg.isp_test_focus = isp_gen->isp_ini_cfg.isp_test_settings.isp_test_focus;
-	isp_gen->af_entity_ctx.af_param.u.test_cfg.focus_start = isp_gen->isp_ini_cfg.isp_test_settings.focus_start;
-	isp_gen->af_entity_ctx.af_param.u.test_cfg.focus_step = isp_gen->isp_ini_cfg.isp_test_settings.focus_step;
-	isp_gen->af_entity_ctx.af_param.u.test_cfg.focus_end = isp_gen->isp_ini_cfg.isp_test_settings.focus_end;
-	isp_gen->af_entity_ctx.af_param.u.test_cfg.focus_change_interval = isp_gen->isp_ini_cfg.isp_test_settings.focus_change_interval;
-	isp_gen->af_entity_ctx.af_param.u.test_cfg.af_en = isp_gen->isp_ini_cfg.isp_test_settings.af_en;
-	isp_af_set_params_helper(&isp_gen->af_entity_ctx, ISP_AF_TEST_CONFIG);
 }
 
 void __isp_af_run(struct isp_lib_context *isp_gen)
@@ -664,7 +648,6 @@ void __isp_ctx_cfg_lib(struct isp_lib_context *isp_gen)
 	isp_gen->af_settings.af_coor.x2 = 1000;
 	isp_gen->af_settings.af_coor.y2 = 1000;
 
-
 	isp_gen->stat.min_rgb_saved = 1023;
 	isp_gen->stat.c_noise_saved = 20;
 
@@ -672,13 +655,6 @@ void __isp_ctx_cfg_lib(struct isp_lib_context *isp_gen)
 	isp_gen->stats_ctx.wb_gain_saved.gr_gain = 256;
 	isp_gen->stats_ctx.wb_gain_saved.gb_gain = 256;
 	isp_gen->stats_ctx.wb_gain_saved.b_gain = 256;
-
-	//vcm config
-	isp_gen->stat.vcm_cfg.vcm_max_code  = param->isp_3a_settings.vcm_max_code;
-	isp_gen->stat.vcm_cfg.vcm_min_code  = param->isp_3a_settings.vcm_min_code;
-
-	//param->isp_test_settings.manual_en = 1;
-	isp_lib_log_param = param->isp_test_settings.isp_log_param;
 }
 
 #define ISP_CTX_MODULE_EN(en_bit, ISP_FEATURES) \
@@ -724,6 +700,8 @@ int __isp_ctx_apply_enable(struct isp_lib_context *isp_gen)
 	ISP_CTX_MODULE_EN(param->isp_test_settings.hist_en	  , ISP_FEATURES_HIST);
 
 	mod_cfg->module_enable_flag |= ISP_FEATURES_MODE;
+
+	isp_lib_log_param = param->isp_test_settings.isp_log_param;
 
 	return 0;
 }
@@ -856,7 +834,7 @@ static void __isp_ctx_cfg_mod(struct isp_lib_context *isp_gen)
 
 	if (param->isp_test_settings.linear_en);
 		memcpy(mod_cfg->linear_table, param->isp_tunning_settings.linear_tbl,
-			ISP_ARRAY_SIZE(param->isp_tunning_settings.linear_tbl) * sizeof(unsigned short));
+			ISP_ARRAY_SIZE(param->isp_tunning_settings.linear_tbl) * (sizeof(unsigned short)));
 
 	if (param->isp_test_settings.lsc_en) {
 		config_lens_table(isp_gen, 512);
@@ -1166,6 +1144,21 @@ HW_S32 __isp_ctx_update_af_cfg(struct isp_lib_context *isp_gen)
 	memcpy(&isp_gen->af_entity_ctx.af_param.u.af_ini.af_tolerance_value_tbl[0],
 		&isp_gen->isp_ini_cfg.isp_3a_settings.af_tolerance_value_tbl[0], 20*sizeof(int));
 	isp_af_set_params_helper(&isp_gen->af_entity_ctx, ISP_AF_INI_DATA);
+
+	clear(isp_gen->af_entity_ctx.af_param);
+	isp_gen->af_entity_ctx.af_param.u.vcm.vcm_max_code = isp_gen->isp_ini_cfg.isp_3a_settings.vcm_max_code;
+	isp_gen->af_entity_ctx.af_param.u.vcm.vcm_min_code = isp_gen->isp_ini_cfg.isp_3a_settings.vcm_min_code;
+	isp_af_set_params_helper(&isp_gen->af_entity_ctx, ISP_AF_VCM_PARAM);
+
+	clear(isp_gen->af_entity_ctx.af_param);
+	isp_gen->af_entity_ctx.af_param.u.test_cfg.isp_test_mode = isp_gen->isp_ini_cfg.isp_test_settings.isp_test_mode;
+	isp_gen->af_entity_ctx.af_param.u.test_cfg.isp_test_focus = isp_gen->isp_ini_cfg.isp_test_settings.isp_test_focus;
+	isp_gen->af_entity_ctx.af_param.u.test_cfg.focus_start = isp_gen->isp_ini_cfg.isp_test_settings.focus_start;
+	isp_gen->af_entity_ctx.af_param.u.test_cfg.focus_step = isp_gen->isp_ini_cfg.isp_test_settings.focus_step;
+	isp_gen->af_entity_ctx.af_param.u.test_cfg.focus_end = isp_gen->isp_ini_cfg.isp_test_settings.focus_end;
+	isp_gen->af_entity_ctx.af_param.u.test_cfg.focus_change_interval = isp_gen->isp_ini_cfg.isp_test_settings.focus_change_interval;
+	isp_gen->af_entity_ctx.af_param.u.test_cfg.af_en = isp_gen->isp_ini_cfg.isp_test_settings.af_en;
+	isp_af_set_params_helper(&isp_gen->af_entity_ctx, ISP_AF_TEST_CONFIG);
 
 	return 0;
 }

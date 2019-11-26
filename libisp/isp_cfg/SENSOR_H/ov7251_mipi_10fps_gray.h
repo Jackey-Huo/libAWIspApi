@@ -5,7 +5,7 @@
  * Hawkview ISP - ov7251_mipi config module
  * Copyright (c) 2019 by Allwinnertech Co., Ltd. http://www.allwinnertech.com
  *  Version  |     Author      |     Date     |      Description
- *    2.0    |  Hawkview Tool  |  2019/04/23  |  Automatic generation.
+ *    2.0    |  Hawkview Tool  |  2019/06/21  |  Automatic generation.
  *
  *****************************************************************************
  */
@@ -32,7 +32,7 @@ struct isp_test_param ov7251_mipi_10fps_isp_test_settings = {
 	.focus_step = 10,
 	.focus_end = 800,
 	.focus_change_interval = 5,
-	.isp_log_param = 0x400001,
+	.isp_log_param = 0,
 	.isp_gain = 256,
 	.isp_exp_line = 20000,
 	.isp_color_temp = 2700,
@@ -73,30 +73,30 @@ struct isp_3a_param ov7251_mipi_10fps_isp_3a_settings = {
 	.ae_max_lv = 1650,
 	.ae_table_preview_length = 2,
 	.ae_table_preview = {
-		 8000,    10,   256,   256,   200,   200,
-		   10,    10,   256,  4096,   200,   200
+		 8000,    30,   256,   256,   200,   200,
+		   30,    30,   256,  4096,   200,   200
 	},
 	.ae_table_capture_length = 2,
 	.ae_table_capture = {
-		 8000,    10,   256,   256,   200,   200,
-		   10,    10,   256,  4096,   200,   200
+		 8000,    30,   256,   256,   200,   200,
+		   30,    30,   256,  4096,   200,   200
 	},
 	.ae_table_video_length = 2,
 	.ae_table_video = {
-		 8000,    10,   256,   256,   200,   200,
-		   10,    10,   256,  4096,   200,   200
+		 8000,    30,   256,   256,   200,   200,
+		   30,    30,   256,  4096,   200,   200
 	},
 	.ae_win_weight = {
-		4,     4,     4,     4,     4,     4,     4,     4,
-		4,     4,     4,     4,     4,     4,     4,     4,
-		4,     4,     4,     8,     8,     4,     4,     4,
-		4,     4,     6,    16,    16,     6,     4,     4,
-		4,     6,    10,    16,    16,    10,     6,     4,
-		4,    10,    16,    16,    16,    16,    10,     4,
-		4,    16,    16,    16,    16,    16,    16,     4,
-		4,     4,     4,     4,     4,     4,     4,     4
+		    4,     4,     4,     4,     4,     4,     4,     4,
+		    4,     4,     4,     4,     4,     4,     4,     4,
+		    4,     4,     4,     4,     4,     4,     4,     4,
+		    4,     4,     4,     4,     4,     4,     4,     4,
+		    4,     4,     4,     4,     4,     4,     4,     4,
+		    4,     4,     4,     4,     4,     4,     4,     4,
+		    4,     4,     4,     4,     4,     4,     4,     4,
+		    4,     4,     4,     4,     4,     4,     4,     4
 	},
-	.ae_hist_mod_en = 0,
+	.ae_hist_mod_en = 1,
 	.ae_hist_sel = 0,
 	.ae_stat_sel = 2,
 	.ae_ki = 50,
@@ -104,8 +104,8 @@ struct isp_3a_param ov7251_mipi_10fps_isp_3a_settings = {
 	.ae_blowout_pre_en = 0,
 	.ae_blowout_attr = 30,
 	.ae_delay_frame = 0,
-	.exp_delay_frame = 1,
-	.gain_delay_frame = 1,
+	.exp_delay_frame = 0,
+	.gain_delay_frame = 0,
 	.exp_comp_step = 4,
 	.ae_touch_dist_ind = 0,
 	.ae_iso2gain_ratio = 16,
@@ -218,7 +218,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 	},
 	.isp_dynamic_cfg[0] = {
 		.sharp_cfg = {
-			8, 20, 188, 188, 188, 188, 256, 0, 256, 0
+			4, 20, 555, 555, 256, 333, 256, 0, 256, 0
 		},
 		.contrast_cfg = {
 			1, 16, 36, 12, 105, 512, 0, 256, 0, 256, 0
@@ -252,7 +252,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 4,
 		.ae_cfg = {
-			512, 192, 256, 256, 8, 8, 8, 8, 3, 40, 4, 12, 22, 64
+			512, 192, 256, 256, 24, 24, 24, 24, 5, 33, 4, 12, 22, 64
 		},
 		.gtm_cfg = {
 			1024, 22, 22, 5, 215, 1, 7, 1, -2
@@ -260,13 +260,13 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 	},
 	.isp_dynamic_cfg[1] = {
 		.sharp_cfg = {
-			8, 24, 177, 177, 177, 177, 256, 0, 256, 0
+			6, 24, 444, 444, 256, 300, 256, 0, 256, 0
 		},
 		.contrast_cfg = {
 			2, 16, 36, 12, 105, 256, 0, 256, 0, 256, 0
 		},
 		.denoise_cfg = {
-			240, 0, 160, 0
+			180, 0, 200, 0
 		},
 		.sensor_offset = {
 			-64, -64, -64, -64
@@ -294,7 +294,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 16,
 		.ae_cfg = {
-			512, 192, 256, 256, 8, 8, 8, 8, 3, 40, 4, 12, 22, 64
+			512, 192, 256, 256, 24, 24, 24, 24, 5, 33, 4, 12, 22, 64
 		},
 		.gtm_cfg = {
 			1024, 22, 22, 5, 215, 1, 7, 1, -2
@@ -302,13 +302,13 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 	},
 	.isp_dynamic_cfg[2] = {
 		.sharp_cfg = {
-			8, 28, 166, 166, 166, 166, 256, 0, 256, 0
+			8, 28, 333, 333, 240, 277, 256, 0, 256, 0
 		},
 		.contrast_cfg = {
 			4, 16, 32, 32, 105, 256, 0, 256, 0, 256, 0
 		},
 		.denoise_cfg = {
-			360, 0, 240, 0
+			266, 0, 288, 0
 		},
 		.sensor_offset = {
 			-64, -64, -64, -64
@@ -317,7 +317,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 			-237, -242, -242, -246
 		},
 		.dpc_cfg = {
-			8, 8, 2047, 1
+			8, 8, 1024, 1
 		},
 		.pltm_dynamic_cfg = {
 			0, 0, 0
@@ -336,7 +336,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 32,
 		.ae_cfg = {
-			380, 192, 256, 256, 8, 8, 8, 8, 3, 40, 4, 12, 22, 64
+			380, 192, 256, 256, 24, 24, 24, 24, 5, 33, 4, 12, 22, 64
 		},
 		.gtm_cfg = {
 			1024, 22, 22, 5, 215, 1, 7, 1, -2
@@ -344,13 +344,13 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 	},
 	.isp_dynamic_cfg[3] = {
 		.sharp_cfg = {
-			8, 32, 155, 155, 155, 155, 256, 0, 256, 0
+			12, 34, 256, 256, 222, 256, 256, 0, 256, 0
 		},
 		.contrast_cfg = {
 			4, 16, 32, 32, 105, 256, 0, 256, 0, 256, 0
 		},
 		.denoise_cfg = {
-			600, 0, 350, 0
+			366, 0, 350, 0
 		},
 		.sensor_offset = {
 			-64, -64, -64, -64
@@ -359,7 +359,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 			-237, -242, -242, -246
 		},
 		.dpc_cfg = {
-			4, 4, 2047, 1
+			4, 2, 128, 2
 		},
 		.pltm_dynamic_cfg = {
 			0, 0, 0
@@ -378,7 +378,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 50,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 42, 4, 12, 16, 64
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 33, 4, 12, 16, 64
 		},
 		.gtm_cfg = {
 			1024, 22, 22, 5, 215, 1, 7, 1, -2
@@ -386,22 +386,22 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 	},
 	.isp_dynamic_cfg[4] = {
 		.sharp_cfg = {
-			8, 36, 144, 144, 144, 144, 256, 0, 256, 0
+			20, 46, 222, 222, 200, 222, 256, 0, 256, 0
 		},
 		.contrast_cfg = {
 			4, 16, 36, 12, 105, 256, 64, 256, 0, 256, 0
 		},
 		.denoise_cfg = {
-			900, 0, 400, 0
+			500, 0, 411, 0
 		},
 		.sensor_offset = {
-			-64, -64, -64, -64
+			-72, -72, -72, -72
 		},
 		.black_level = {
 			-237, -242, -242, -246
 		},
 		.dpc_cfg = {
-			2, 3, 2047, 2
+			1, 1, 32, 2
 		},
 		.pltm_dynamic_cfg = {
 			0, 0, 0
@@ -420,7 +420,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 80,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 42, 4, 16, 12, 48
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 33, 4, 16, 12, 48
 		},
 		.gtm_cfg = {
 			1024, 22, 22, 5, 215, 1, 7, 1, -2
@@ -428,7 +428,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 	},
 	.isp_dynamic_cfg[5] = {
 		.sharp_cfg = {
-			10, 40, 133, 133, 133, 133, 256, 0, 256, 0
+			30, 60, 133, 133, 133, 133, 256, 0, 256, 0
 		},
 		.contrast_cfg = {
 			4, 16, 34, 12, 105, 256, 80, 256, 0, 256, 0
@@ -443,7 +443,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 			-237, -242, -242, -246
 		},
 		.dpc_cfg = {
-			1, 3, 1600, 2
+			1, 1, 8, 2
 		},
 		.pltm_dynamic_cfg = {
 			0, 0, 0
@@ -462,7 +462,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 120,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 42, 4, 24, 8, 32
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 33, 4, 24, 8, 32
 		},
 		.gtm_cfg = {
 			1024, 22, 22, 5, 215, 1, 7, 1, -2
@@ -470,7 +470,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 	},
 	.isp_dynamic_cfg[6] = {
 		.sharp_cfg = {
-			12, 50, 133, 133, 133, 133, 256, 0, 256, 0
+			42, 80, 88, 88, 88, 88, 256, 0, 256, 0
 		},
 		.contrast_cfg = {
 			4, 16, 30, 12, 105, 256, 96, 256, 0, 256, 0
@@ -485,7 +485,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 			-237, -242, -242, -246
 		},
 		.dpc_cfg = {
-			1, 3, 1024, 2
+			1, 1, 2, 2
 		},
 		.pltm_dynamic_cfg = {
 			0, 0, 0
@@ -504,7 +504,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 160,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 42, 4, 30, 6, 25
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 33, 4, 30, 6, 25
 		},
 		.gtm_cfg = {
 			1024, 50, 10, 13, 215, 1, 7, 1, 0
@@ -512,7 +512,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 	},
 	.isp_dynamic_cfg[7] = {
 		.sharp_cfg = {
-			14, 60, 133, 133, 133, 133, 256, 0, 256, 0
+			36, 70, 133, 133, 133, 133, 256, 0, 256, 0
 		},
 		.contrast_cfg = {
 			4, 16, 26, 12, 105, 256, 104, 256, 0, 256, 0
@@ -527,7 +527,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 			-237, -242, -242, -246
 		},
 		.dpc_cfg = {
-			1, 3, 1024, 2
+			1, 1, 1, 2
 		},
 		.pltm_dynamic_cfg = {
 			0, 0, 0
@@ -546,7 +546,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 100,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 42, 4, 30, 2, 25
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 33, 4, 30, 2, 25
 		},
 		.gtm_cfg = {
 			1024, 50, 10, 13, 215, 1, 7, 1, 0
@@ -588,7 +588,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 122,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 42, 4, 30, 2, 25
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 33, 4, 30, 2, 25
 		},
 		.gtm_cfg = {
 			1024, 50, 10, 13, 215, 1, 7, 1, 0
@@ -630,7 +630,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 144,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 42, 4, 30, 2, 25
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 31, 4, 30, 2, 25
 		},
 		.gtm_cfg = {
 			1024, 50, 10, 13, 215, 1, 7, 1, 0
@@ -672,7 +672,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 166,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 44, 4, 30, 2, 25
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 31, 4, 30, 2, 25
 		},
 		.gtm_cfg = {
 			1024, 50, 10, 13, 215, 1, 7, 1, 0
@@ -714,7 +714,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 188,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 44, 4, 30, 2, 25
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 30, 4, 30, 2, 25
 		},
 		.gtm_cfg = {
 			1024, 50, 10, 13, 215, 1, 7, 1, 0
@@ -756,7 +756,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 200,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 44, 4, 30, 2, 25
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 30, 4, 30, 2, 25
 		},
 		.gtm_cfg = {
 			1024, 50, 10, 13, 215, 1, 7, 1, 0
@@ -798,7 +798,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 		},
 		.color_denoise = 222,
 		.ae_cfg = {
-			256, 192, 256, 256, 8, 8, 8, 8, 3, 44, 4, 30, 2, 25
+			256, 192, 256, 256, 24, 24, 24, 24, 5, 30, 4, 30, 2, 25
 		},
 		.gtm_cfg = {
 			1024, 50, 10, 13, 215, 1, 7, 1, 0
@@ -808,7 +808,7 @@ struct isp_dynamic_param ov7251_mipi_10fps_isp_iso_settings = {
 struct isp_tunning_param ov7251_mipi_10fps_isp_tuning_settings = {
 	.flash_gain = 80,
 	.flash_delay_frame = 16,
-	.flicker_type = 0,
+	.flicker_type = 1,
 	.flicker_ratio = 15,
 	.hor_visual_angle = 60,
 	.ver_visual_angle = 40,
@@ -859,9 +859,9 @@ struct isp_tunning_param ov7251_mipi_10fps_isp_tuning_settings = {
 		   15,   210,    32,   255,    23,    31,    34
 	},
 	.isp_bdnf_th = {
-		    7,    18,    25,    28,    39,    66,    94,   116,
-		  138,   133,   111,   105,   105,    94,    77,    77,
-		   77,    72,    59,    62,    63,    66,    67,    70,
+		    0,     9,    23,    33,    38,    42,    45,    47,
+		   49,    50,    51,    52,    54,    54,    54,    53,
+		   55,    57,    59,    62,    63,    66,    67,    70,
 		   71,    74,    76,    78,    80,    83,    84,    87,
 		   88
 	},
@@ -900,8 +900,8 @@ struct isp_tunning_param ov7251_mipi_10fps_isp_tuning_settings = {
 		  128
 	},
 	.isp_sharp_val = {
-		  144,   132,   128,   128,   128,   128,   124,   117,
-		   96,    96,    80,    80,    64,    64,    48,    48,
+		  144,   132,   128,   123,   121,   115,   110,   104,
+		   96,    89,    80,    76,    64,    55,    48,    40,
 		   32,    32,    32,    32,    32,    32,    32,    32,
 		   32,    32,    32,    32,    32,    32,    32,    32,
 		   32

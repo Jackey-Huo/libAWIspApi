@@ -31,10 +31,11 @@
 #include "SENSOR_H/isp_default_ini_4v5.h"
 #include "SENSOR_H/ar0238_default_ini_4v5.h"
 #include "SENSOR_H/imx317_default_ini_4v5.h"
-#include "SENSOR_H/imx258_default_ini_4v5.h"
 #include "SENSOR_H/ov12895_default_ini_4v5.h"
 #include "SENSOR_H/ov2718_wdr_ini_4v5.h"
 #include "SENSOR_H/imx317_wdr_ini_4v5.h"
+#include "SENSOR_H/imx274_wdr_ini_4v5.h"
+#include "SENSOR_H/imx274_default_ini_4v5.h"
 #include "SENSOR_H/ov2775_mipi.h"
 #include "SENSOR_H/gc2355_mipi.h"
 #include "SENSOR_H/gc5024_mipi.h"
@@ -43,10 +44,13 @@
 #include "SENSOR_H/s5k5e9_720p_15fps_r311.h"
 #include "SENSOR_H/ov7251_mipi_gray.h"
 #include "SENSOR_H/ov7251_mipi_10fps_gray.h"
+#include "SENSOR_H/ov5658.h"
+#include "SENSOR_H/gc5025_mipi.h"
+#include "SENSOR_H/sc031gs_mipi_gray.h"
 
-unsigned int isp_cfg_log_param = 0x00;
+unsigned int isp_cfg_log_param = ISP_LOG_CFG;
 
-#define ISP_LIB_USE_INIPARSER 0
+#define ISP_LIB_USE_INIPARSER 1
 
 #if ISP_LIB_USE_INIPARSER
 
@@ -628,13 +632,13 @@ int isp_read_file(char *file_path, char *buf, size_t len)
 	}
 
 	fp = fopen(file_path, "r");
-	if (fp == NULL) {
+	if (!fp) {
 		ISP_ERR("open file failed!\n");
 		return -1;
 	}
 
 	buf_len = fread(buf, 1, s.st_size, fp);
-	ISP_CFG_LOG(ISP_LOG_CFG, "buf_len = %Zu, expect len = %ld\n", buf_len, s.st_size);
+	ISP_CFG_LOG(ISP_LOG_CFG, "buf_len = %Zu, expect len = %lld\n", buf_len, s.st_size);
 	fclose(fp);
 
 	if (buf_len <= 0)
@@ -786,14 +790,16 @@ struct isp_cfg_array cfg_arr[] = {
 	{"imx317_mipi", "imx317_default_ini_4v5", 3840, 2160, 30, 0, 0, &imx317_default_ini_4v5},
 	{"imx317_mipi", "imx317_default_ini_4v5", 1920, 1080, 30, 0, 0, &imx317_default_ini_4v5},
 	{"imx317_mipi", "imx317_wdr_ini_4v5", 1920, 1080, 30, 1, 0, &imx317_wdr_ini_4v5},
+	{"imx274_slvds", "imx274_default_ini_4v5", 1920, 1080, 60, 0, 0, &imx274_default_ini_4v5},
+	{"imx274_slvds", "imx274_wdr_ini_4v5", 1920, 1080, 60, 1, 0, &imx274_wdr_ini_4v5},
 	{"ov12895_mipi", "ov12895_default_ini_4v5", 1920, 1080, 30, 0, 0, &ov12895_default_ini_4v5},
 	{"imx290_mipi", "imx290_default_ini_4v5", 1920, 1080, 30, 0, 0, &imx290_default_ini_4v5},
 	{"imx291_mipi", "imx291_mipi_isp_cfg", 1920, 1080, 30, 0, 0, &imx291_mipi_isp_cfg},
 	{"ar0238", "ar0238_default_ini_4v5", 1920, 1080, 30, 0, 0, &ar0238_default_ini_4v5},
-	{"ov2718_mipi", "ar0238_default_ini_4v5", 1920, 1080, 30, 1, 0, &ar0238_default_ini_4v5},
+	{"ov2718_mipi", "ov2718_wdr_ini_4v5", 1920, 1080, 30, 1, 0, &ov2718_wdr_ini_4v5},
 	{"ov2775_mipi", "ov2775_mipi_isp_cfg", 1920, 1080, 30, 1, 0, &ov2775_mipi_isp_cfg},
 	{"gc2355_mipi", "gc2355_mipi_isp_cfg", 1600, 1200, 30, 0, 0, &gc2355_mipi_isp_cfg},
-	{"gc5024_mipi", "gc5024_mipi_isp_cfg", 2592, 1936, 1, 0, 0, &gc5024_mipi_isp_cfg},
+	{"gc5024_mipi", "gc5024_mipi_isp_cfg", 2592, 1936, 30, 0, 0, &gc5024_mipi_isp_cfg},
 	{"imx179_mipi", "imx179_t7_2288", 2288, 2288, 30, 0, 0, &imx179_mipi_isp_cfg},
 	{"imx179_mipi", "imx179_t7_2288", 1920, 1080, 30, 0, 0, &imx179_mipi_isp_cfg},
 	{"imx179_mipi", "imx179_t7_2288", 1280, 1080, 30, 0, 0, &imx179_mipi_isp_cfg},
@@ -801,6 +807,9 @@ struct isp_cfg_array cfg_arr[] = {
 	{"s5k5e9", "s5k5e9_720p_r311", 1280, 720, 15, 0, 0, &s5k5e9_isp_cfg},
 	{"ov7251_mipi", "ov7251_mipi_gray_mr133", 640, 480, 30, 0, 0, &ov7251_mipi_isp_cfg},
 	{"ov7251_mipi", "ov7251_mipi_10fps_gray_mr133", 640, 480, 10, 0, 0, &ov7251_mipi_10fps_isp_cfg},
+	{"ov5658", "ov5658_mr133", 1920, 1600, 30, 0, 0, &ov5658_isp_cfg},
+	{"gc5025_mipi", "gc5025_mipi_isp_cfg_r311", 2592, 1936, 30, 0, 0, &gc5025_mipi_isp_cfg},
+	{"sc031gs_mipi", "sc031gs_mipi_isp_cfg", 640, 480, 30, 0, 0, &sc031gs_mipi_isp_cfg},
 };
 int temp_array_1[4] = {2800, 4000, 5000, 6500};
 int temp_array_2[6] = {2200, 2800, 4000, 5000, 5500, 6500};
@@ -846,12 +855,13 @@ int parser_sync_info(struct isp_param_config *param, char *isp_cfg_name, int isp
 	int enable = 0;
 	sprintf(fdstr, "/mnt/extsd/%s_%d.bin", isp_cfg_name, isp_id);
 	file_fd = fopen(fdstr, "rb");
+
 	if (!file_fd) {
 		ISP_ERR("parser_sync_info: open bin failed.\n");
 		return -1;
+	} else {
+		fread(&bayer_gain_result[0], sizeof(int)*775, 1, file_fd);
 	}
-
-	fread(&bayer_gain_result[0], sizeof(int)*775, 1, file_fd);
 	fclose(file_fd);
 
 	version_num = bayer_gain_result[0];
@@ -971,6 +981,9 @@ int parser_ini_info(struct isp_param_config *param, char *sensor_name,
 		if (!strncmp(sensor_name, "imx317", 6)) {
 			ISP_PRINT("use imx317 isp config.\n");
 			cfg = &imx317_default_ini_4v5;
+		} else if (!strncmp(sensor_name, "imx274", 6)) {
+			ISP_PRINT("use imx274 isp config.\n");
+			cfg = &imx274_default_ini_4v5;
 		} else if (!strncmp(sensor_name, "ov12895", 7)) {
 			ISP_PRINT("use ov12895 isp config.\n");
 			cfg = &ov12895_default_ini_4v5;
@@ -986,9 +999,6 @@ int parser_ini_info(struct isp_param_config *param, char *sensor_name,
 		} else if (!strncmp(sensor_name, "ov2718", 6)) {
 			ISP_PRINT("use ov2718 isp config.\n");
 			cfg = &ov2718_wdr_ini_4v5;
-		} else if (!strncmp(sensor_name, "imx258", 6)) {
-			ISP_PRINT("use imx258 isp config.\n");
-			cfg = &imx258_isp_cfg;
 		} else if (!strncmp(sensor_name, "ov2775", 6)) {
 			ISP_PRINT("use ov2775 isp config.\n");
 			cfg = &ov2775_mipi_isp_cfg;
@@ -1001,6 +1011,9 @@ int parser_ini_info(struct isp_param_config *param, char *sensor_name,
 		} else if (!strncmp(sensor_name, "ov7251_mipi", 11)) {
 			ISP_PRINT("use ov7251_mipi isp config.\n");
 			cfg = &ov7251_mipi_isp_cfg;
+		} else if (!strncmp(sensor_name, "sc031gs_mipi", 12)) {
+			ISP_PRINT("use sc031gs_mipi isp config.\n");
+			cfg = &sc031gs_mipi_isp_cfg;
 		} else {
 			ISP_PRINT("use default isp config.\n");
 		}
@@ -1016,7 +1029,7 @@ int parser_ini_info(struct isp_param_config *param, char *sensor_name,
 	param->isp_3a_settings.ae_stat_sel = AE_AFTER_CNR;
 	param->isp_3a_settings.awb_stat_sel = 0;
 
-	if(sync_mode && (i < array_size(cfg_arr))) {
+	if(sync_mode && i < array_size(cfg_arr)) {
 		parser_sync_info(param, cfg_arr[i].isp_cfg_name, isp_id);
 	}
 	return 0;

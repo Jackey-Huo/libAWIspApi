@@ -3,9 +3,9 @@
  * ov7251_mipi
  * 640x480@30fps, wdr: 0
  * Hawkview ISP - ov7251_mipi config module
- * Copyright (c) 2018 by Allwinnertech Co., Ltd. http://www.allwinnertech.com
+ * Copyright (c) 2019 by Allwinnertech Co., Ltd. http://www.allwinnertech.com
  *  Version  |     Author      |     Date     |      Description
- *    2.0    |  Hawkview Tool  |  2018/12/14  |  Automatic generation.
+ *    2.0    |  Hawkview Tool  |  2019/05/10  |  Automatic generation.
  *
  *****************************************************************************
  */
@@ -62,7 +62,7 @@ struct isp_test_param ov7251_mipi_isp_test_settings = {
 	.satur_en = 0,
 	.defog_en = 0,
 	.linear_en = 0,
-	.gtm_en = 0,
+	.gtm_en = 1,
 	.dig_gain_en = 1,
 	.pltm_en = 0,
 	.wdr_en = 0,
@@ -74,17 +74,17 @@ struct isp_3a_param ov7251_mipi_isp_3a_settings = {
 	.ae_table_preview_length = 2,
 	.ae_table_preview = {
 		 8000,    30,   256,   256,   200,   200,
-		   30,    30,   256,  2048,   200,   200
+		   30,    30,   256,  4096,   200,   200
 	},
 	.ae_table_capture_length = 2,
 	.ae_table_capture = {
 		 8000,    30,   256,   256,   200,   200,
-		   30,    30,   256,  2048,   200,   200
+		   30,    30,   256,  4096,   200,   200
 	},
 	.ae_table_video_length = 2,
 	.ae_table_video = {
 		 8000,    30,   256,   256,   200,   200,
-		   30,    30,   256,  2048,   200,   200
+		   30,    30,   256,  4096,   200,   200
 	},
 	.ae_win_weight = {
 		    4,     4,     4,     4,     4,     4,     4,     4,
@@ -96,7 +96,7 @@ struct isp_3a_param ov7251_mipi_isp_3a_settings = {
 		    4,    16,    16,    16,    16,    16,    16,     4,
 		    4,     4,     4,     4,     4,     4,     4,     4
 	},
-	.ae_hist_mod_en = 1,
+	.ae_hist_mod_en = 0,
 	.ae_hist_sel = 0,
 	.ae_stat_sel = 2,
 	.ae_ki = 50,
@@ -227,7 +227,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			100, 0, 80, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -269,7 +269,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			200, 0, 160, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -311,7 +311,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			300, 0, 240, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -353,7 +353,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			400, 0, 320, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -395,7 +395,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			500, 0, 400, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -437,7 +437,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			600, 0, 480, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -479,7 +479,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			512, 0, 512, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -521,7 +521,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			768, 0, 768, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -563,7 +563,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			1000, 0, 1280, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -605,7 +605,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			1200, 0, 1200, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -647,7 +647,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			2200, 0, 2000, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -689,7 +689,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			2800, 0, 2240, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -731,7 +731,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			3600, 0, 2360, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -773,7 +773,7 @@ struct isp_dynamic_param ov7251_mipi_isp_iso_settings = {
 			4400, 0, 2560, 0
 		},
 		.sensor_offset = {
-			-16, -16, -16, -16
+			-64, -64, -64, -64
 		},
 		.black_level = {
 			-237, -242, -242, -246
@@ -809,7 +809,7 @@ struct isp_tunning_param ov7251_mipi_isp_tuning_settings = {
 	.flash_gain = 80,
 	.flash_delay_frame = 16,
 	.flicker_type = 0,
-	.flicker_ratio = 15,
+	.flicker_ratio = 30,
 	.hor_visual_angle = 60,
 	.ver_visual_angle = 40,
 	.focus_length = 300,

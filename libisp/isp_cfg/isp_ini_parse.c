@@ -47,6 +47,7 @@
 #include "SENSOR_H/ov5658.h"
 #include "SENSOR_H/gc5025_mipi.h"
 #include "SENSOR_H/sc031gs_mipi_gray.h"
+#include "SENSOR_H/gc0403_mipi.h"
 
 unsigned int isp_cfg_log_param = ISP_LOG_CFG;
 
@@ -810,6 +811,7 @@ struct isp_cfg_array cfg_arr[] = {
 	{"ov5658", "ov5658_mr133", 1920, 1600, 30, 0, 0, &ov5658_isp_cfg},
 	{"gc5025_mipi", "gc5025_mipi_isp_cfg_r311", 2592, 1936, 30, 0, 0, &gc5025_mipi_isp_cfg},
 	{"sc031gs_mipi", "sc031gs_mipi_isp_cfg", 640, 480, 30, 0, 0, &sc031gs_mipi_isp_cfg},
+	{"gc0403_mipi", "gc0403_mipi_isp_cfg", 768, 576, 30, 0, 0, &gc0403_mipi_isp_cfg},
 };
 int temp_array_1[4] = {2800, 4000, 5000, 6500};
 int temp_array_2[6] = {2200, 2800, 4000, 5000, 5500, 6500};
@@ -1014,6 +1016,9 @@ int parser_ini_info(struct isp_param_config *param, char *sensor_name,
 		} else if (!strncmp(sensor_name, "sc031gs_mipi", 12)) {
 			ISP_PRINT("use sc031gs_mipi isp config.\n");
 			cfg = &sc031gs_mipi_isp_cfg;
+		} else if (!strncmp(sensor_name, "gc0403_mipi", 11)) {
+            ISP_PRINT("use gc0403_mipi isp config.\n");
+            cfg = &gc0403_mipi_isp_cfg;
 		} else {
 			ISP_PRINT("use default isp config.\n");
 		}

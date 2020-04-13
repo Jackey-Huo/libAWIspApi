@@ -5,8 +5,8 @@
 * File : isp_version.h
 * Description :
 * History :
-* Author  : zhaowei <zhaowei@allwinnertech.com>
-* Date    : 2018/02/08
+* Author  : surya <xuyu@dreame.tech>
+* Date    : 2020/04/13
 *
 */
 
@@ -19,12 +19,12 @@
 extern "C" {
 #endif
 
-#define ISP_VERSION "V1.00"
+#define ISP_VERSION "V1.01"
 #define REPO_TAG "v5-sdv-v1.0-1.0.1"
 #define REPO_BRANCH "libisp-dev"
 #define REPO_COMMIT "5880a1ab280b686d027614b556aee783a0c8ccac"
-#define REPO_DATE "Thu Feb 8 18:39:56 2018 +0800"
-#define RELEASE_AUTHOR "zhaowei"
+#define REPO_DATE "Thu April 13 09:39:56 2020 +0800"
+#define RELEASE_AUTHOR "surya"
 
 static inline void isp_version_info(void)
 {
